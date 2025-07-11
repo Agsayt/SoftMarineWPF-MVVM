@@ -63,7 +63,7 @@ public partial class App : Application
         //var sqliteConnectionString = @"DataSource=Data.db;";
         //services.AddDbContext<CoreContext>(x => x.UseSqlite(sqliteConnectionString));
 
-        var npgsqlConnectionString = $"Server=127.0.0.1;Port=5432;Database=Tester;User ID=ProductionDatabase;Password=eQQ1p9u7TehL;Pooling=True;Command Timeout=300";
+        var npgsqlConnectionString = $"Server=127.0.0.1;Port=5432;Database=;User ID=;Password=;Pooling=True;Command Timeout=300";
 
         services.AddDbContext<CoreContext>(s =>
         {

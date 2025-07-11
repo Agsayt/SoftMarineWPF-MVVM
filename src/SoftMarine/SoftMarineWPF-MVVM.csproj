@@ -24,7 +24,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\SoftMarineWPF-MVVM.Core\SoftMarineWPF-MVVM.Core.csproj" />
+    <ProjectReference Include="..\Core\SoftMarineWPF-MVVM.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
