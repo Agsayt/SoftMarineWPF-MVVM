@@ -1,0 +1,102 @@
+﻿<Page
+    x:Class="SoftMarineWPF_MVVM.Views.InspectionDialogCreatePage"
+    Style="{DynamicResource MahApps.Styles.Page}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:properties="clr-namespace:SoftMarineWPF_MVVM.Properties"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="900">
+    <Grid Background="LightBlue" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="48" />
+        </Grid.RowDefinitions>
+        <TextBlock
+        Style="{StaticResource CenteredTitleStyle}"
+        Margin="{StaticResource MediumLeftRightMargin}"
+        Text="{Binding Title}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+                Grid.Column="0" Grid.Row="0"
+                Style="{StaticResource LeftBaseTextBlockStyle}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="Название инспекции"/>
+            <TextBox 
+                Grid.Column="1" Grid.Row="0"
+                Width="110" 
+                Height="20"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="{Binding Name, Mode=TwoWay}"/>
+            
+            <TextBlock 
+                Grid.Column="0" Grid.Row="1"
+                Style="{StaticResource LeftBaseTextBlockStyle}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="Дата инспекции"/>
+            <DatePicker 
+                Grid.Column="1" Grid.Row="1"
+                Width="110" 
+                Height="20"
+                SelectedDate="{Binding InspectionDate, Mode=TwoWay}"
+                Margin="{StaticResource MediumLeftRightMargin}"/>
+
+            <TextBlock 
+                Grid.Column="0" Grid.Row="2"
+                Style="{StaticResource LeftBaseTextBlockStyle}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="Комментарий"/>
+            <TextBox 
+                Grid.Column="1" Grid.Row="2"
+                Width="110" 
+                Height="20"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="{Binding Commentary, Mode=TwoWay}"/>
+
+            <TextBlock 
+                Grid.Column="0" Grid.Row="3"
+                Style="{StaticResource LeftBaseTextBlockStyle}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Text="Инспектор"/>
+            <ComboBox 
+                Grid.Column="1" Grid.Row="3"
+                Width="110" 
+                Height="20"
+                SelectedIndex="0"
+                ItemsSource="{Binding InspectorSource}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                SelectedItem="{Binding SelectedInspector}"/>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+            Style="{StaticResource CenterBaseTextBlockStyle}"
+            Margin="{StaticResource MediumLeftRightMargin}"       
+            Text="{Binding Result, Mode=TwoWay}"/>
+
+        <Grid Grid.Row="3">
+            <Button
+            Grid.Column="0"
+            Width="250"
+            Height="30"
+            Command="{Binding InspectionCreation}"
+            Margin="{StaticResource MediumLeftRightMargin}"
+            Content="Сохранить"/>
+
+        </Grid>
+
+
+    </Grid>
+</Page>

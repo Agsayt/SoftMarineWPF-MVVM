@@ -1,0 +1,165 @@
+﻿<Page
+    x:Class="SoftMarineWPF_MVVM.Views.InspectionPage"
+    Style="{DynamicResource MahApps.Styles.Page}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:properties="clr-namespace:SoftMarineWPF_MVVM.Properties"
+    mc:Ignorable="d"
+    d:DesignHeight="720" d:DesignWidth="1280">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="0.5*" MinHeight="130" />
+            <RowDefinition Height="0.5*" MinHeight="130"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Style="{StaticResource PageTitleStyle}"
+            Margin="{StaticResource MediumLeftMargin}"
+            Text="{x:Static properties:Resources.InspectionPageTitle}" />
+        <Grid Grid.Row="1"
+              Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel 
+                Margin="{StaticResource SmallLeftMargin}"
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource RightBaseTextBlockStyle}"
+                    Text="{x:Static properties:Resources.InspectorFilter}"/>
+                <ComboBox
+                    Grid.Column="1"
+                    Height="20"
+                    MinWidth="120"
+                    IsSynchronizedWithCurrentItem="true"
+                    SelectedIndex="0"
+                    ItemsSource="{Binding InspectorSource}"
+                    SelectedItem="{Binding SelectedInspector, Mode=TwoWay}"
+                    Margin="{StaticResource MediumLeftRightMargin}"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                Margin="{StaticResource SmallLeftMargin}"
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource RightBaseTextBlockStyle}"
+                    Text="{x:Static properties:Resources.NameFilter}"/>
+                <TextBox
+                    Height="20"
+                    MinWidth="120"
+                    Text="{Binding NameFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="{StaticResource MediumLeftRightMargin}"/>
+            </StackPanel>
+            <Button
+                Grid.Column="2"
+                Height="30"
+                Command="{Binding InspectionCreation}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Content="Добавить инспекцию"/>
+            <Button
+                Grid.Column="3"
+                Height="30"
+                Command="{Binding ToInspectors}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Content="Справочник Инспекторы"/>
+        </Grid>
+
+        <Grid Grid.Row="2" MaxHeight="350">
+            <ScrollViewer>
+                <DataGrid
+                    Style="{StaticResource BaseGrid}"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    ItemsSource="{Binding Source}"
+                    SelectedItem="{Binding SelectedInspection, Mode=TwoWay}"
+                    KeyboardNavigation.TabNavigation="Once"
+                    SelectionMode="Single">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактирование" Command="{Binding UpdatingInspection}"/>
+                            <MenuItem Header="Удаление" Command="{Binding DeletingInspection}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Название инспекции" IsReadOnly="true"/>
+                        <DataGridTextColumn Binding="{Binding Date}" Header="Дата" IsReadOnly="true"/>
+                        <DataGridTextColumn Binding="{Binding Inspector}" Header="Инспектор" IsReadOnly="true" />
+                        <DataGridTextColumn Binding="{Binding Commentary}" Header="Комментарий" IsReadOnly="true"/>
+                        <DataGridTextColumn Binding="{Binding RemarkValue}" Header="Кол-во замечаний" IsReadOnly="true"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+
+        
+
+        <Grid Grid.Row="4" MaxHeight="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Style="{StaticResource PageTitleStyle}"
+                    Margin="{StaticResource MediumLeftMargin}"
+                    Text="{x:Static properties:Resources.RemarkPageTitle}" />
+                
+                <Button
+                  Grid.Column="3"
+                  Height="30"
+                  Command="{Binding RemarkCreation}"
+                  Margin="{StaticResource MediumLeftRightMargin}"
+                  Content="Добавить замечание"/>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1">
+                <DataGrid
+                    Style="{StaticResource BaseGrid}"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    ItemsSource="{Binding SelectedInspection.Remarks}"
+                    SelectedItem="{Binding SelectedRemark}"
+                    KeyboardNavigation.TabNavigation="Once">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактирование" Command="{Binding UpdatingRemark}"/>
+                            <MenuItem Header="Удаление" Command="{Binding DeletingRemark}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                            Binding="{Binding Title}"
+                            Header="Замечание"
+                            IsReadOnly="true"/>
+                        <DataGridTextColumn 
+                            Binding="{Binding DateOfElimination}" 
+                            Header="Дата устранения"
+                            IsReadOnly="true"/>
+                        <DataGridTextColumn
+                            Binding="{Binding Commentary}"
+                            Header="Комментарий"
+                            IsReadOnly="true"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

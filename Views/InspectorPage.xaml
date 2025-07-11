@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="SoftMarineWPF_MVVM.Views.InspectorPage"
+    Style="{DynamicResource MahApps.Styles.Page}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:properties="clr-namespace:SoftMarineWPF_MVVM.Properties"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Style="{StaticResource PageTitleStyle}"
+            Margin="{StaticResource MediumLeftMargin}"
+            Text="{x:Static properties:Resources.InspectorPageTitle}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="2"
+                Height="30"
+                Command="{Binding CreateInspectorDialog}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Content="Добавить инспектора"/>
+            <Button
+                Grid.Column="3"
+                Height="30"
+                Command="{Binding ToMain}"
+                Margin="{StaticResource MediumLeftRightMargin}"
+                Content="Назад"/>
+        </Grid>
+        
+        <Grid Grid.Row="2">
+            <DataGrid
+                Style="{StaticResource BaseGrid}"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                CanUserAddRows="False"
+                ItemsSource="{Binding Source}"
+                SelectedItem="{Binding SelectedInspector, Mode=TwoWay}"
+                KeyboardNavigation.TabNavigation="Once">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Command="{Binding UpdateInspectorDialog}"/>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteInspector}" CommandParameter=""/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия" IsReadOnly="true"/>
+                    <DataGridTextColumn Binding="{Binding FirstName}" Header="Имя" IsReadOnly="true"/>
+                    <DataGridTextColumn Binding="{Binding MiddleName}" Header="Отчество" IsReadOnly="true"/>
+                    <DataGridTextColumn Binding="{Binding UniqueNumber}" Header="Уникальный номер" IsReadOnly="true" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>
